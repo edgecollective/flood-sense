@@ -21,6 +21,7 @@ base_url= "https://edgecollective.farmos.net/farm/sensor/listener/"
 
 JSON_POST_URL = base_url+farmos_pubkey+"?private_key="+farmos_privkey
 
+JSON_POST_URL = "http://192.168.1.245:9000/api/endpoint"
 # esp32
 
 import adafruit_esp32spi.adafruit_esp32spi_socket as socket
@@ -68,17 +69,24 @@ while True:
 
     print("radio waiting ...")
     packet = rfm9x.receive(timeout=TIMEOUT)
-
     if packet is not None:
 
         pt = str(packet, 'ascii').strip()
-        print("Received: ",pt)
 
-        params=pt.split(",")
-        print(params)
+        #print("Received: ",pt)
+        pt1 = pt.split('\x00')[0]
+        print("got:",pt1)
+        #params=pt1.split(";")
+        pt2=pt1.split(",")
+        print(pt2)
+        temp = pt2[0].split(":")[1]
+        humid = pt2[1].split(":")[1]
+        press = pt2[2].split(":")[1].replace('}','')
         
-        if len(params)==6:
 
+        if len(pt2)==3:
+
+            """
             packetNum = float(params[0].strip('M'))
             depthTemp=float(params[1])
             depthPress=float(params[2])
@@ -87,7 +95,9 @@ while True:
             vBat=float(params[5].strip('\n\x00'))
 
             json_data = {"depthTemp":depthTemp,"depthPress":depthPress,"surfaceTemp":surfaceTemp,"surfacePress":surfacePress,"vBat":vBat,"packetNum":packetNum}
-            
+            """
+            json_data = {"temperature":temp,"humidity":humid,"pressure":press}
+
             print(json_data)
 
             print("Posting to ",JSON_POST_URL)
@@ -98,7 +108,7 @@ while True:
 
             print("Done. Sleeping ... ")
             time.sleep(90)
-
+            
 
 
 
