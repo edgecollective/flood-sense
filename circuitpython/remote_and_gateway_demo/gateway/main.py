@@ -13,8 +13,8 @@ import sys
 # SCK --> SCK
 # MISO --> MISO
 # MOSI --> MOSI
-# CS --> D7
-# RST --> D9
+# CS --> 7
+# RST --> 9
 
 # wiring from AIRLIFT breakout to itsybitsy_m4:
 # (AIRLIFT breakout --> itsybitsy_m4)

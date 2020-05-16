@@ -15,8 +15,8 @@ led.direction = digitalio.Direction.OUTPUT
 # SCK --> SCK
 # MISO --> MISO
 # MOSI --> MOSI
-# CS --> D7
-# RST --> D9
+# CS --> 7
+# RST --> 9
 
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 cs = digitalio.DigitalInOut(board.D7)
