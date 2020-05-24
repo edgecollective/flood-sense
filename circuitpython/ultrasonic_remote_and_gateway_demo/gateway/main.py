@@ -6,16 +6,6 @@ import time
 import gc
 import sys
 
-# wiring from LORA breakout to itsybitsy_m4:
-# (LORA breakout --> itsybitsy_m4)
-# VIN --> 3V
-# GND --> GND
-# SCK --> SCK
-# MISO --> MISO
-# MOSI --> MOSI
-# CS --> 7
-# RST --> 9
-
 # wiring from AIRLIFT breakout to itsybitsy_m4:
 # (AIRLIFT breakout --> itsybitsy_m4)
 # VIN --> USB
@@ -24,8 +14,8 @@ import sys
 # MISO --> MISO
 # MOSI --> MOSI
 # CS --> D10
-# BUSY --> D11
-
+# RST --> D11
+# BUSY --> D9
 
 SLEEP_TIME = 90 # number of seconds to wait for each posting cycle
 MAX_ATTEMPTS = 2 # max number of attempts to connect to wifi before sleeping
