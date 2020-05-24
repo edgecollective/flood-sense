@@ -18,13 +18,18 @@ import sys
 
 # wiring from AIRLIFT breakout to itsybitsy_m4:
 # (AIRLIFT breakout --> itsybitsy_m4)
-# VIN --> 3V
+# VIN --> USB
 # GND --> GND
 # SCK --> SCK
 # MISO --> MISO
 # MOSI --> MOSI
-# CS --> D7
-# RST --> D9
+# CS --> D10
+# RST --> D11
+# BUSY --> D9
+
+esp32_cs = DigitalInOut(board.D10)
+esp32_reset = DigitalInOut(board.D11)
+esp32_ready = DigitalInOut(board.D9)
 
 SLEEP_TIME = 90 # number of seconds to wait for each posting cycle
 MAX_ATTEMPTS = 2 # max number of attempts to connect to wifi before sleeping
