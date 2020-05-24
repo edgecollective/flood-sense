@@ -26,9 +26,6 @@ import sys
 # CS --> D10
 # BUSY --> D11
 
-esp32_cs = DigitalInOut(board.D10)
-esp32_reset = DigitalInOut(board.D11)
-esp32_ready = DigitalInOut(board.D9)
 
 SLEEP_TIME = 90 # number of seconds to wait for each posting cycle
 MAX_ATTEMPTS = 2 # max number of attempts to connect to wifi before sleeping
