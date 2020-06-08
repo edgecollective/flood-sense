@@ -67,49 +67,42 @@ while True:
     gc.collect()
 
 
-    print("radio waiting ...")
-    packet = rfm9x.receive(timeout=TIMEOUT)
-    if packet is not None:
+    try:
 
-        pt = str(packet, 'ascii').strip()
+        print("radio waiting ...")
+        packet = rfm9x.receive(timeout=TIMEOUT)
+        if packet is not None:
 
-        #print("Received: ",pt)
-        pt1 = pt.split('\x00')[0]
-        print("got:",pt1)
-        #params=pt1.split(";")
-        pt2=pt1.split(",")
-        print(pt2)
-        temp = pt2[0].split(":")[1]
-        humid = pt2[1].split(":")[1]
-        press = pt2[2].split(":")[1].replace('}','')
-        
+            pt = str(packet, 'ascii').strip()
 
-        if len(pt2)==3:
-
-            """
-            packetNum = float(params[0].strip('M'))
-            depthTemp=float(params[1])
-            depthPress=float(params[2])
-            surfaceTemp=float(params[3])
-            surfacePress=float(params[4])
-            vBat=float(params[5].strip('\n\x00'))
-
-            json_data = {"depthTemp":depthTemp,"depthPress":depthPress,"surfaceTemp":surfaceTemp,"surfacePress":surfacePress,"vBat":vBat,"packetNum":packetNum}
-            """
-            json_data = {"temperature":temp,"humidity":humid,"pressure":press}
-
-            print(json_data)
-
-            print("Posting to ",JSON_POST_URL)
-            
-            connect(WIFI_ESSID,WIFI_PASS)
-            response = requests.post(JSON_POST_URL, json=json_data)
-            response.close()
-
-            print("Done. Sleeping ... ")
-            time.sleep(90)
+            #print("Received: ",pt)
+            pt1 = pt.split('\x00')[0]
+            print("got:",pt1)
+            #params=pt1.split(";")
+            pt2=pt1.split(",")
+            print(pt2)
+            temp = pt2[0].split(":")[1]
+            humid = pt2[1].split(":")[1]
+            press = pt2[2].split(":")[1].replace('}','')
             
 
+            if len(pt2)==3:
+
+                json_data = {"temperature":temp,"humidity":humid,"pressure":press}
+
+                print(json_data)
+
+                print("Posting to ",JSON_POST_URL)
+                
+                connect(WIFI_ESSID,WIFI_PASS)
+                response = requests.post(JSON_POST_URL, json=json_data)
+                response.close()
+
+                print("Done. Sleeping ... ")
+                time.sleep(90)
+    
+    except Exception as e:
+        print("error: "+str(e))
 
 
        
