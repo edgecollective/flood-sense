@@ -6,10 +6,12 @@
 // level messaging abilities.
 // It is designed to work with the other example Feather9x_RX
 
+#define deviceName "remote_100"
+#define devEUI "100"
+
 #include <SPI.h>
 #include <RH_RF95.h>
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
-
 
 // for feather m0  
 #define RFM95_CS A3
@@ -18,6 +20,8 @@
 
 #define LED 13
 #define DONE 12
+
+#define VBATPIN A7
 
 // Change to 434.0 or other frequency, must match RX's freq!
 #define RF95_FREQ 915.0
@@ -95,6 +99,17 @@ int16_t packetnum = 0;  // packet counter, we increment per xmission
 
 void loop()
 {
+
+doc["devEUI"] = devEUI;
+doc["deviceName"]=deviceName;
+
+
+  // battery measurement
+   float measuredvbat = analogRead(VBATPIN);
+measuredvbat *= 2;    // we divided by 2, so multiply back
+measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
+measuredvbat /= 1024; // convert to voltage
+
   delay(1000); // Wait 1 second between transmits, could also 'sleep' here!
 
  // get the ultrasonic distance
@@ -108,10 +123,11 @@ void loop()
   distance = (duration*.0343)/2;
 
   doc["distance"] = round2(distance);
+  doc["BatV"] = round2(measuredvbat);
   
   Serial.println("Transmitting..."); // Send a message to rf95_server
   
-  char radiopacket[20] = "Hello World #      ";
+  char radiopacket[80] = "Hello World #      ";
   serializeJson(doc,radiopacket,80);
 
   
@@ -121,7 +137,7 @@ void loop()
   
   Serial.println("Sending...");
   delay(10);
-  rf95.send((uint8_t *)radiopacket, 20);
+  rf95.send((uint8_t *)radiopacket, 80);
 
   Serial.println("Waiting for packet to complete..."); 
   delay(10);
