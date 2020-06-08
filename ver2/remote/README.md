@@ -7,9 +7,7 @@
 [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
 
 
-## Wiring
-
-Hardware setup:
+## Hardware
 
 - Feather M0 micro
 - Ultrasonic Sensor
@@ -18,19 +16,23 @@ Hardware setup:
 
 (Also works without Timer, for testing)
 
-### LoRa Breakout -- Feather M0
+## Wiring
+
+**LoRa Breakout -- Feather M0**
 
 - CS -- A3
 - RST -- A4
 - INT -- A5
 
-## Ultrasonic -- Feather M0
-TRIG -- 10
-ECHO -- 11 (via voltage divider)
+** Ultrasonic -- Feather M0**
 
-### Timer -- Feather M0
-DRV -- BAT
-DONE -- 12
+- TRIG -- 10
+- ECHO -- 11 (via voltage divider)
+
+**Timer -- Feather M0**
+
+- DRV -- BAT
+- DONE -- 12
 
 
 
