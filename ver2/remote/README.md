@@ -1,6 +1,6 @@
 # Remote 
 
-## Arduino libraries:
+## Required Arduino libraries
 
 [RadioHead](https://cdn-learn.adafruit.com/assets/assets/000/031/670/original/RadioHead-1.59.zip?1460574831)
 
@@ -9,12 +9,20 @@
 
 ## Wiring
 
-Feather M0 board with Ultrasonic Sensor, LoRa Breakout and TPL5110 Timer
+Hardware setup:
+
+- Feather M0 micro
+- Ultrasonic Sensor
+- LoRa Breakout 
+- TPL5110 Timer
+
+(Also works without Timer, for testing)
 
 ### LoRa Breakout -- Feather M0
-CS -- A3
-RST -- A4
-INT -- A5
+
+- CS -- A3
+- RST -- A4
+- INT -- A5
 
 ## Ultrasonic -- Feather M0
 TRIG -- 10
