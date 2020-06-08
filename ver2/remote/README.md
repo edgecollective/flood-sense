@@ -24,7 +24,7 @@
 - RST -- A4
 - INT -- A5
 
-** Ultrasonic -- Feather M0**
+**Ultrasonic -- Feather M0**
 
 - TRIG -- 10
 - ECHO -- 11 (via voltage divider)
