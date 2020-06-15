@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include "Adafruit_VL53L0X.h"
+#include "Adafruit_VL53L0X.h" // https://learn.adafruit.com/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout/arduino-code
 #include "RTCZero.h" // https://github.com/arduino-libraries/RTCZero
 
 #include <SPI.h>

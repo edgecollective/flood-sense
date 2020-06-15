@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include "Adafruit_VL6180X.h"
+#include "Adafruit_VL6180X.h" // https://learn.adafruit.com/adafruit-vl6180x-time-of-flight-micro-lidar-distance-sensor-breakout/wiring-and-test
 #include "RTCZero.h" // https://github.com/arduino-libraries/RTCZero
 
 #include <SPI.h>
