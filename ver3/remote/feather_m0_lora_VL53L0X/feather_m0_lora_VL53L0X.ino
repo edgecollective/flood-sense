@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include "Adafruit_VL6180X.h"
+#include "Adafruit_VL53L0X.h"
 #include "RTCZero.h" // https://github.com/arduino-libraries/RTCZero
 
 #include <SPI.h>
@@ -7,8 +7,8 @@
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
 
 
-#define devEUI "102"
-#define deviceName "fml_02"
+#define devEUI "103"
+#define deviceName "fml_03"
 
 // for feather m0  
 #define RFM95_CS 8
@@ -31,7 +31,7 @@ const unsigned TX_INTERVAL = 3;
 // Singleton instance of the radio driver
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
-Adafruit_VL6180X vl = Adafruit_VL6180X();
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
 //float distance;
 uint8_t distance;
@@ -71,8 +71,8 @@ if(RTC_SLEEP) {
   }
   */
   
-  Serial.println("Adafruit VL6180x test!");
-  if (! vl.begin()) {
+  //Serial.println("Adafruit VL6180x test!");
+  if (! lox.begin()) {
     Serial.println("Failed to find sensor");
     while (1);
   }
@@ -112,53 +112,21 @@ int16_t packetnum = 0;  // packet counter, we increment per xmission
 
 void loop() {
 
+VL53L0X_RangingMeasurementData_t measure;
+
    float measuredvbat = analogRead(VBATPIN);
 measuredvbat *= 2;    // we divided by 2, so multiply back
 measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
 measuredvbat /= 1024; // convert to voltage
 
+
+    lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
+
+  int status = measure.RangeStatus;
+  float range = measure.RangeMilliMeter;
   
-  float lux = vl.readLux(VL6180X_ALS_GAIN_5);
-
-  //Serial.print("Lux: "); Serial.println(lux);
+  float lux = 0.0;  // is there a lux value we can get from this sensor?
   
-  uint8_t range = vl.readRange();
-  uint8_t status = vl.readRangeStatus();
-
-  if (status == VL6180X_ERROR_NONE) {
-    Serial.print("Range: "); Serial.println(range);
-  }
-
-  // Some error occurred, print it out!
-  
-  if  ((status >= VL6180X_ERROR_SYSERR_1) && (status <= VL6180X_ERROR_SYSERR_5)) {
-    Serial.println("System error");
-  }
-  else if (status == VL6180X_ERROR_ECEFAIL) {
-    Serial.println("ECE failure");
-  }
-  else if (status == VL6180X_ERROR_NOCONVERGE) {
-    Serial.println("No convergence");
-  }
-  else if (status == VL6180X_ERROR_RANGEIGNORE) {
-    Serial.println("Ignoring range");
-  }
-  else if (status == VL6180X_ERROR_SNR) {
-    Serial.println("Signal/Noise error");
-  }
-  else if (status == VL6180X_ERROR_RAWUFLOW) {
-    Serial.println("Raw reading underflow");
-  }
-  else if (status == VL6180X_ERROR_RAWOFLOW) {
-    Serial.println("Raw reading overflow");
-  }
-  else if (status == VL6180X_ERROR_RANGEUFLOW) {
-    Serial.println("Range reading underflow");
-  }
-  else if (status == VL6180X_ERROR_RANGEOFLOW) {
-    Serial.println("Range reading overflow");
-  }
-
 
   doc["dist"] = range;
   doc["lux"] = round2(lux);
