@@ -8,6 +8,8 @@
 
 [RTCZero](https://github.com/arduino-libraries/RTCZero)
 
+[Adafruit VL53L0X library](https://learn.adafruit.com/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout/arduino-code)
+
 ## Hardware
 
 - Feather M0 LoRa 
