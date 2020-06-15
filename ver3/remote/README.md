@@ -6,34 +6,21 @@
 
 [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
 
+[RTCZero](https://github.com/arduino-libraries/RTCZero)
 
 ## Hardware
 
-- Feather M0 micro
-- Ultrasonic Sensor
-- LoRa Breakout 
-- TPL5110 Timer
-
-(Also works without Timer, for testing)
+- Feather M0 LoRa 
+- Adafruit VL53L0X microlidar sensor 
 
 ## Wiring
 
-**LoRa Breakout -- Feather M0**
+**Microlidar -- Feather M0**
 
-- CS -- A3
-- RST -- A4
-- INT -- A5
-
-**Ultrasonic -- Feather M0**
-
-- TRIG -- 10
-- ECHO -- 11 (via voltage divider)
-
-**Timer -- Feather M0**
-
-- DRV -- BAT
-- DONE -- 12
-
+- VIN -- 3.3V 
+- GND -- GND
+- SCL -- SCL
+- SDA -- SDA
 
 
 
